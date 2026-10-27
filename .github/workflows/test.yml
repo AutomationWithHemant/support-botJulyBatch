@@ -23,8 +23,7 @@ jobs:
 
       # 4. run the checks
       - run: pytest test_ci.py -v
-
-      # ---- OPTIONAL: the real quality eval (needs the API key) ----
+      - run: pytest test_api.py -v
       # Uncomment this block AND add OPENAI_API_KEY in
       # Settings -> Secrets -> Actions to run the full bot eval.
       #
