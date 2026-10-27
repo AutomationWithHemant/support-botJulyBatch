@@ -1,0 +1,16 @@
+# secrets - NEVER push these
+.env
+
+# generated / local
+venv/
+.venv/
+__pycache__/
+chroma_db/
+reports/
+redteam.yaml
+.promptfoo/
+node_modules/
+ui-tests/test-results/
+.DS_Store
+.deepeval
+.env.example

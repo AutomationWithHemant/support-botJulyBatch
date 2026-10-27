@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "support-bot2",
+			"path": "."
+		},
+		{
+			"name": "ui-tests",
+			"path": "../AIChatBotProject 3/ui-tests"
+		}
+	],
+	"settings": {}
+}

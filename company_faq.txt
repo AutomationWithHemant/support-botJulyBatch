@@ -1,0 +1,31 @@
+QodeBench Support FAQ
+
+Q: What are your support hours? 
+A: Our support team is available Monday to Friday, 9 AM to 6 PM IST. We are closed on weekends and public holidays.
+
+Q: How do I reset my password?
+A: Click "Forgot Password" on the login page, enter your registered email, and follow the reset link sent to your inbox. The link is valid for 30 minutes.
+
+Q: What is your refund policy?
+A: We offer a full refund within 14 days of purchase if you are not satisfied. Refunds are processed within 5 to 7 business days to your original payment method.
+
+Q: How do I upgrade my plan?
+A: Go to Settings, then Billing, and click "Upgrade Plan". You can switch between Basic, Pro, and Enterprise plans at any time. Upgrades take effect immediately.
+
+Q: Do you offer a free trial?
+A: Yes, we offer a 7-day free trial for all new users. No credit card is required to start the trial.
+
+Q: How can I contact a human agent?
+A: You can reach a human agent by emailing support@qodebench.com or using the live chat during support hours.
+
+Q: Is my data secure?
+A: Yes. We use industry-standard encryption for data in transit and at rest. We never share your data with third parties without consent.
+
+Q: What payment methods do you accept?
+A: We accept all major credit cards, debit cards, UPI, and net banking for customers in India.
+
+Q: Can I cancel my subscription anytime?
+A: Yes, you can cancel anytime from Settings, then Billing. Your plan stays active until the end of the current billing period.
+
+Q: How do I export my data?
+A: Go to Settings, then Data, and click "Export". Your data will be emailed to you as a downloadable file within 24 hours.

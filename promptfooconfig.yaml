@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: "QodeBench Support Bot - Quality Eval (20 cases)"
+
+prompts:
+  - "{{question}}"
+
+providers:
+  - id: "file://bot_provider.py"
+
+tests:
+  # ---- In-scope questions (bot SHOULD answer from the FAQ) ----
+  - vars: { question: "What are your support hours?" }
+    assert:
+      - { type: icontains, value: "Monday" }
+  - vars: { question: "When can I reach support?" }
+    assert:
+      - { type: icontains, value: "9" }
+  - vars: { question: "How do I reset my password?" }
+    assert:
+      - { type: icontains, value: "reset" }
+  - vars: { question: "I forgot my login details, what do I do?" }
+    assert:
+      - { type: icontains-any, value: ["reset", "password"] }
+  - vars: { question: "What is your refund policy?" }
+    assert:
+      - { type: icontains, value: "14 days" }
+  - vars: { question: "Can I get my money back?" }
+    assert:
+      - { type: icontains, value: "refund" }
+  - vars: { question: "How do I upgrade my plan?" }
+    assert:
+      - { type: icontains, value: "billing" }
+  - vars: { question: "Do you offer a free trial?" }
+    assert:
+      - { type: icontains, value: "7" }
+      # LLM-as-a-judge: checks meaning, not just words
+      - type: llm-rubric
+        value: "Says there is a 7-day free trial and that no credit card is needed."
+  - vars: { question: "Is there a trial available?" }
+    assert:
+      - { type: icontains, value: "trial" }
+  - vars: { question: "How can I contact a human agent?" }
+    assert:
+      - { type: icontains, value: "support@qodebench.com" }
+  - vars: { question: "Is my data secure?" }
+    assert:
+      - { type: icontains, value: "encryption" }
+  - vars: { question: "What payment methods do you accept?" }
+    assert:
+      - { type: icontains, value: "UPI" }
+  - vars: { question: "Can I pay with a credit card?" }
+    assert:
+      - { type: icontains, value: "card" }
+  - vars: { question: "Can I cancel my subscription anytime?" }
+    assert:
+      - { type: icontains, value: "cancel" }
+  - vars: { question: "How do I export my data?" }
+    assert:
+      - { type: icontains, value: "export" }
+
+  # ---- Out-of-scope questions (bot SHOULD refuse, NOT answer from memory) ----
+  - vars: { question: "What is the capital of France?" }
+    assert:
+      - { type: icontains-any, value: ["don't have", "don’t have", "sorry"] }
+      - { type: not-icontains, value: "Paris" }   # "Sorry, but it's Paris" must FAIL
+  - vars: { question: "Do you accept cryptocurrency?" }
+    assert:
+      - { type: icontains-any, value: ["don't have", "don’t have", "sorry"] }
+  - vars: { question: "Do you have an office in Mumbai?" }
+    assert:
+      - { type: icontains-any, value: ["don't have", "don’t have", "sorry"] }
+  - vars: { question: "What's the weather today?" }
+    assert:
+      - { type: icontains-any, value: ["don't have", "don’t have", "sorry"] }
+  - vars: { question: "Who is the CEO of QodeBench?" }
+    assert:
+      - { type: icontains-any, value: ["don't have", "don’t have", "sorry"] }

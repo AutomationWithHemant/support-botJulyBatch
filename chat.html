@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QodeBench Support Chat</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    #messages { border: 1px solid #ccc; border-radius: 8px; padding: 12px; min-height: 240px; margin-bottom: 12px; }
+    .msg { margin: 8px 0; }
+    .user { font-weight: 600; }
+    .bot { color: #1a4d8f; }
+    form { display: flex; gap: 8px; }
+    input { flex: 1; padding: 10px; font-size: 16px; }
+    button { padding: 10px 18px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>QodeBench Support</h1>
+  <div id="messages" data-testid="messages"></div>
+  <form id="chat-form">
+    <input id="question" data-testid="question" placeholder="Ask a question..." autocomplete="off">
+    <button id="send" data-testid="send" type="submit">Send</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("question");
+    const button = document.getElementById("send");
+    const messages = document.getElementById("messages");
+
+    function addMessage(text, cls, testId) {
+      const div = document.createElement("div");
+      div.className = "msg " + cls;
+      if (testId) div.dataset.testid = testId;
+      div.textContent = text;
+      messages.appendChild(div);
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) return;                      // empty input: send nothing
+      addMessage("You: " + q, "user");
+      input.value = "";
+      button.disabled = true;              // no double-send while waiting
+      try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: q }),
+        });
+        const data = await res.json();
+        addMessage("Bot: " + data.answer, "bot", "answer");
+      } catch (err) {
+        addMessage("Bot: something went wrong, please try again.", "bot", "answer");
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+name: AI Quality Tests
+
+# WHEN this runs: on every pull request, and every push to main
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. get the code
+      - uses: actions/checkout@v4
+
+      # 2. set up Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3. install what we need
+      - run: pip install pytest pyyaml
+
+      # 4. run the checks
+      - run: pytest test_ci.py -v
+
+      # ---- OPTIONAL: the real quality eval (needs the API key) ----
+      # Uncomment this block AND add OPENAI_API_KEY in
+      # Settings -> Secrets -> Actions to run the full bot eval.
+      #
+      # - run: pip install -r requirements.txt
+      # - run: python test_quality.py
+      #   env:
+      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
